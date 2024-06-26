@@ -49,11 +49,7 @@ function Home() {
               Featured {category}
             </h2>
             {groupedProducts[category] ? (
-              <ProductCarousel
-                products={groupedProducts[category]}
-                cardWidth={2/6}
-                cardHeight={2/6}
-              />
+              <ProductCarousel products={groupedProducts[category]} />
             ) : (
               <p className="text-center text-white">Loading products...</p>
             )}

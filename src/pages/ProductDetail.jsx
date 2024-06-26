@@ -1,62 +1,93 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useParams, Link } from "react-router-dom";
 
 function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/products/${id}`)
-      .then((response) => response.json())
-      .then((data) => setProduct(data))
-      .catch((error) => console.error("Error fetching product:", error));
+    const fetchProduct = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`https://dummyjson.com/products/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch product details.");
+        }
+        const data = await response.json();
+        setProduct(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
-  if (!product) {
+  if (isLoading) {
     return (
       <div className="container mx-auto p-4 mt-10 text-center">Loading...</div>
     );
   }
 
-  const settings = {
-    dots: true, // Enable dots
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    appendDots: (dots) => (
-      <div className="flex w-full justify-center gap-2 py-2">{dots}</div>
-    ),
-    customPaging: (i) => (
-      <a href={`#item${i + 1}`} className="btn btn-xs">
-        {i + 1}
-      </a>
-    ),
-  };
+  if (error) {
+    return (
+      <div className="container mx-auto p-4 mt-10 text-center text-red-500">
+        Error: {error.message}
+      </div>
+    );
+  }
+
+  // Calculate discounted price
+  const discountedPrice = (
+    product.price -
+    (product.price * product.discountPercentage) / 100
+  ).toFixed(2);
 
   return (
     <div className="container mx-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="md:col-span-2">
-          <h1 className="text-3xl font-bold mb-4 text-center">
-            {product.title}
-          </h1>
-        </div>
-        <div className="md:col-span-2">
-          <Slider {...settings}>
-            {product.images.map((image, index) => (
-              <div key={index} className="carousel-item w-4/6">
-                <img src={image} alt={product.title} className="w-2/6" />
-              </div>
-            ))}
-          </Slider>
-        </div>
-        <div className="px-4 mt-4">
-          <p className="text-lg">{product.description}</p>
-          <p className="text-xl font-bold mt-4">Price: ${product.price}</p>
+      <div className="card lg:card-side bg-base-100 shadow-2xl">
+        <figure className="shrink-0">
+          <img
+            className="h-[300px] w-full md:h-[400px] md:w-[400px] object-cover"
+            src={product.thumbnail}
+            alt={product.title}
+          />
+        </figure>
+        <div className="card-body w-full text-center md:text-left">
+          <h2 className="text-3xl font-bold mb-4">{product.title}</h2>
+          <p className="text-lg mb-4">{product.description}</p>
+
+          {/* Price Section */}
+          <div className="mb-4">
+            <span className="text-lg line-through opacity-50 mr-4">
+              Old Price: ${product.price}
+            </span>
+            <span className="text-lg bg-red-400 text-white py-1 px-3 rounded-full">
+              Sale: {product.discountPercentage}%
+            </span>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-center md:justify-start mb-4">
+            <span className="text-lg mr-4">
+              New Price: 💰 ${discountedPrice}
+            </span>
+            <span className="text-lg flex items-center">
+              <i className="fa-solid fa-star text-yellow-300 mr-2"></i>
+              {product.rating}
+            </span>
+          </div>
+
+          <div className="card-actions justify-center">
+            <Link to="/products" className="btn btn-outline px-10 text-lg">
+              Back to Store 🧺
+            </Link>
+          </div>
         </div>
       </div>
     </div>

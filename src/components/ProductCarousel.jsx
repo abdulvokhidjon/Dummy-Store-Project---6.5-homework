@@ -39,6 +39,9 @@ function ProductCarousel({ products }) {
             id={product.id}
             title={product.title}
             thumbnail={product.thumbnail}
+            price={product.price}
+            discountPercentage={product.discountPercentage}
+            stock={product.stock}
           />
         </div>
       ))}
