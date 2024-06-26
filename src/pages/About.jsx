@@ -36,15 +36,15 @@ function About() {
             target="_blank"
             rel="noreferrer"
           >
-            Twitter
+            Instagram
           </a>
           <a
-            href="https://www.instagram.com/"
+            href="https://t.me/abdulvohid_web"
             className="btn btn-info"
             target="_blank"
             rel="noreferrer"
           >
-            Instagram
+            Telegram
           </a>
         </div>
       </div>

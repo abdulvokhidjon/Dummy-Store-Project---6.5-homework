@@ -34,33 +34,28 @@ function Contact() {
   };
 
   return (
-    <div
-      className="bg-gradient-to-b from-accent-3 to-primary min-h-screen flex flex-col items-center bg-opacity-75" // Added transparency
-    >
-      <h1 className="text-4xl font-bold text-center text-white mb-8">
-        Contact Us
-      </h1>
-      <div className="container mx-auto p-4 max-w-md">
-        {" "}
-        {/* Added max-w-md to make it more compact */}
-        <form
-          className="bg-white p-8 rounded-md shadow-md"
-          onSubmit={handleSubmit}
-        >
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex flex-col items-center justify-center">
+      <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+          Get in Touch
+        </h1>
+
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="name" className="block text-sm font-medium mb-2">
+            <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
               Name:
             </label>
             <input
               type="text"
               id="name"
               name="name"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
+
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium mb-2">
               Email:
@@ -76,22 +71,23 @@ function Contact() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="message" className="block text-sm font-medium mb-2">
+            <label htmlFor="message" className="block text-black font-medium mb-2">
               Message:
             </label>
             <textarea
               id="message"
               name="message"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               rows="4"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
             ></textarea>
           </div>
+
           <button
             type="submit"
-            className="btn btn-primary px-8 py-3 rounded-md font-medium"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out"
           >
             Send Message
           </button>
