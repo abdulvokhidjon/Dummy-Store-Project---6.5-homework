@@ -9,7 +9,7 @@ function Home() {
   let categoryIndex = 0;
 
   useEffect(() => {
-    fetch("https://dummyjson.com/products")
+    fetch("/products")
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.products);
