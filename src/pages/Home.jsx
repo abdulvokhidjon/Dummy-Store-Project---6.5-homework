@@ -37,7 +37,7 @@ function Home() {
   }, [categories]);
 
   return (
-    <div className="bg-gradient-to-b from-primary to-accent-1 min-h-screen">
+    <div className="bg-gradient-to-b from-primary to-accent-1 min-h-screen -mr-40">
       <div className="container mx-auto p-4">
         <h1 className="text-4xl font-bold text-center text-white mb-8">
           Welcome to Dummy Store
