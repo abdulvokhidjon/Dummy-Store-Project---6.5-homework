@@ -1,17 +1,16 @@
-// Example Carousel component
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Product from "./Product";
 
-function Carousel({ products }) {
+function ProductCarousel({ products }) {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
     responsive: [
       {
         breakpoint: 1024,
@@ -27,7 +26,6 @@ function Carousel({ products }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 1,
         },
       },
     ],
@@ -37,13 +35,15 @@ function Carousel({ products }) {
     <Slider {...settings}>
       {products.map((product) => (
         <div key={product.id}>
-          <img src={product.thumbnail} alt={product.title} />
-          <h3>{product.title}</h3>
-          <p>{product.description}</p>
+          <Product
+            id={product.id}
+            title={product.title}
+            thumbnail={product.thumbnail}
+          />
         </div>
       ))}
     </Slider>
   );
 }
 
-export default Carousel;
+export default ProductCarousel;

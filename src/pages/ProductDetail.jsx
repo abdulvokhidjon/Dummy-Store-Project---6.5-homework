@@ -1,6 +1,8 @@
-// Updated ProductDetail component for a compact and beautiful display
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -13,26 +15,36 @@ function ProductDetail() {
       .catch((error) => console.error(error));
   }, [id]);
 
+  if (!product) {
+    return <p>Loading...</p>;
+  }
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div className="container mx-auto p-4">
-      {product ? (
-        <>
-          <div className="max-w-md mx-auto bg-white shadow-md rounded-md overflow-hidden">
+      <h1 className="text-3xl font-bold mb-4 text-center">{product.title}</h1>
+      <Slider {...settings}>
+        {product.images.map((image, index) => (
+          <div key={index}>
             <img
-              src={product.thumbnail}
+              src={image}
               alt={product.title}
-              className="w-full h-64 object-cover"
+              className="w-full rounded-md"
             />
-            <div className="p-4">
-              <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-              <p className="text-lg mb-4">${product.price}</p>
-              <p className="text-gray-700">{product.description}</p>
-            </div>
           </div>
-        </>
-      ) : (
-        <p className="text-center">Loading...</p>
-      )}
+        ))}
+      </Slider>
+      <div className="mt-4">
+        <p className="text-lg">{product.description}</p>
+        <p className="text-xl font-bold mt-4">Price: ${product.price}</p>
+      </div>
     </div>
   );
 }

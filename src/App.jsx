@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css"; 
+import "./App.css";
 
 // layout
 import MainLayout from "./layout/MainLayout";
@@ -21,7 +21,7 @@ function App() {
         { path: "about", element: <About /> },
         { path: "contact", element: <Contact /> },
         { path: "product/:id", element: <ProductDetail /> },
-        { path: "*", element: <NotFound /> }, 
+        { path: "*", element: <NotFound /> },
       ],
     },
   ]);
