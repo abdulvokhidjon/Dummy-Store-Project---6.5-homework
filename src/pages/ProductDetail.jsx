@@ -11,7 +11,7 @@ function ProductDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let isMounted = true; // Flag to track mounted state
+    let isMounted = true;
 
     const fetchProduct = async () => {
       setIsLoading(true);
@@ -25,7 +25,6 @@ function ProductDetail() {
 
         const data = await response.json();
         if (isMounted) {
-          // Update state only if component is still mounted
           setProduct(data);
         }
       } catch (err) {
@@ -41,11 +40,10 @@ function ProductDetail() {
 
     fetchProduct();
 
-    // Cleanup function to prevent state updates on unmounted components
     return () => {
       isMounted = false;
     };
-  }, [id]); // Only re-fetch when 'id' changes
+  }, [id]);
 
   if (isLoading) {
     return (
@@ -83,11 +81,10 @@ function ProductDetail() {
             autoPlay={true}
             infiniteLoop={true}
             dynamicHeight={true}
-            // Add more accessibility and user experience features:
-            showStatus={false} // Hide image counter
-            showIndicators={true} // Show navigation dots
-            useKeyboardArrows={true} // Allow keyboard navigation
-            emulateTouch={true} // Improve touch experience
+            showStatus={false}
+            showIndicators={true}
+            useKeyboardArrows={true}
+            emulateTouch={true}
           >
             {(product.images || [product.thumbnail]).map((image, index) => (
               <div key={index}>
@@ -125,7 +122,6 @@ function ProductDetail() {
           </div>
 
           <div className="card-actions justify-center">
-            {/* Use useNavigate for better navigation */}
             <button
               onClick={() => navigate(-1)}
               className="btn btn-outline px-10 text-3xl"
