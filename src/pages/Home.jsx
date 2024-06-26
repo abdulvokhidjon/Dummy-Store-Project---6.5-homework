@@ -9,7 +9,7 @@ function Home() {
   let categoryIndex = 0;
 
   useEffect(() => {
-    fetch("/products")
+    fetch("https://dummyjson.com/products")
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.products);
@@ -23,7 +23,7 @@ function Home() {
         setCategories(categoryList);
         setCurrentCategory(categoryList[0]);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
   useEffect(() => {
@@ -37,19 +37,28 @@ function Home() {
   }, [categories]);
 
   return (
-    <div className="bg-gradient-to-b from-primary to-accent-1">
+    <div className="bg-gradient-to-b from-primary to-accent-1 min-h-screen">
       <div className="container mx-auto p-4">
         <h1 className="text-4xl font-bold text-center text-white mb-8">
           Welcome to Dummy Store
         </h1>
-        <h2 className="text-3xl font-bold text-center text-white mb-4">
-          Featured {currentCategory}
-        </h2>
-        {groupedProducts[currentCategory] ? (
-          <ProductCarousel products={groupedProducts[currentCategory]} />
-        ) : (
-          <p className="text-center text-white">Loading products...</p>
-        )}
+        {/* Display categories in separate rows */}
+        {categories.map((category, index) => (
+          <div key={index} className="mb-8">
+            <h2 className="text-3xl font-bold text-center text-white mb-4">
+              Featured {category}
+            </h2>
+            {groupedProducts[category] ? (
+              <ProductCarousel
+                products={groupedProducts[category]}
+                cardWidth={300}
+                cardHeight={350}
+              />
+            ) : (
+              <p className="text-center text-white">Loading products...</p>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
