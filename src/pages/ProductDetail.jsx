@@ -22,11 +22,19 @@ function ProductDetail() {
   }
 
   const settings = {
-    dots: true,
+    dots: true, // Enable dots
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    appendDots: (dots) => (
+      <div className="flex w-full justify-center gap-2 py-2">{dots}</div>
+    ),
+    customPaging: (i) => (
+      <a href={`#item${i + 1}`} className="btn btn-xs">
+        {i + 1}
+      </a>
+    ),
   };
 
   return (
@@ -40,12 +48,8 @@ function ProductDetail() {
         <div className="md:col-span-2">
           <Slider {...settings}>
             {product.images.map((image, index) => (
-              <div key={index}>
-                <img
-                  src={image}
-                  alt={product.title}
-                  className="w-400 h-450 rounded-md"
-                />
+              <div key={index} className="carousel-item w-4/6">
+                <img src={image} alt={product.title} className="w-2/6" />
               </div>
             ))}
           </Slider>
@@ -53,7 +57,6 @@ function ProductDetail() {
         <div className="px-4 mt-4">
           <p className="text-lg">{product.description}</p>
           <p className="text-xl font-bold mt-4">Price: ${product.price}</p>
-          {/* Add button or other interactive elements for user interaction */}
         </div>
       </div>
     </div>

@@ -51,8 +51,8 @@ function Home() {
             {groupedProducts[category] ? (
               <ProductCarousel
                 products={groupedProducts[category]}
-                cardWidth={300}
-                cardHeight={350}
+                cardWidth={2/6}
+                cardHeight={2/6}
               />
             ) : (
               <p className="text-center text-white">Loading products...</p>
