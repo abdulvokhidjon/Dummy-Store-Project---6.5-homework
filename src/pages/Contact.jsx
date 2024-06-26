@@ -42,22 +42,28 @@ function Contact() {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-medium mb-2"
+            >
               Name:
             </label>
             <input
               type="text"
               id="name"
               name="name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border  border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium mb-2">
+          <div className="mb-4 text-black">
+            <label
+              htmlFor="email"
+              className=" block text-gray-700 text-sm font-medium mb-2"
+            >
               Email:
             </label>
             <input
@@ -71,7 +77,10 @@ function Contact() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="message" className="block text-black font-medium mb-2">
+            <label
+              htmlFor="message"
+              className="bg-teal-300 text-black font-medium mb-2"
+            >
               Message:
             </label>
             <textarea
